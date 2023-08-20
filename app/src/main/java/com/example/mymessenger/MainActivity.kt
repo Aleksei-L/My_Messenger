@@ -1,10 +1,12 @@
 package com.example.mymessenger
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +33,10 @@ class MainActivity : AppCompatActivity() {
 
 		intent.type = "text/plain"
 		myIntent.putExtra(Intent.EXTRA_TEXT, message.text.toString())
-		startActivity(myIntent)
+		try {
+			startActivity(myIntent)
+		} catch (e: ActivityNotFoundException) {
+			Toast.makeText(this, "You don't have an app to start!", Toast.LENGTH_SHORT).show()
+		}
 	}
 }
